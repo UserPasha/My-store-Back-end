@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestj
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { SortType } from "./ISortType";
 
 @Controller('products')
 export class ProductController {
@@ -12,11 +13,20 @@ export class ProductController {
   //   return this.productService.create(createProductDto);
   // }
 
-  @Get()
-  findAll(@Query('searchTerm') searchTerm?: string) {
-    return this.productService.findAll(searchTerm);
+  @Get('search')
+  findBySearchTerm(@Query('searchTerm') searchTerm?: string) {
+    return this.productService.findBySearchTerm(searchTerm);
   }
 
+  @Get()
+  findBySortType(@Query('type') sortType?: SortType) {
+    return this.productService.findAll(sortType);
+  }
+
+  // @Get()
+  // findBySortType(@Query('sortType') type?: SortType) {
+  //   return this.productService.findBySortType(type);
+  // }
 
   @Get('/slug/:slug')
   findBySlug(@Param('slug') slug: string) {

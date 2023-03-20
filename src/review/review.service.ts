@@ -3,7 +3,8 @@ import { PrismaService } from "../prisma.service";
 
 @Injectable()
 export class ReviewService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {
+  }
 
   findAll() {
     return this.prisma.review.findMany({
@@ -23,4 +24,10 @@ export class ReviewService {
     if (!review) throw new NotFoundException("Review not found");
     return review;
   }
+
+  // async getAverageRatingByProductId(productId: number) {
+  //   return this.prisma.review.aggregate({ where: { productId }, _avg:{rating: true}})
+  //     .then(data=>data._avg)
+  // }
 }
+
